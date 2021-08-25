@@ -1,0 +1,66 @@
+{
+  "name": "storyblok-fieldtype",
+  "description": "A Storyblok Field-Type Plugin Project",
+  "author": {
+    "name": "Storyblok",
+    "email": "it@storyblok.com",
+    "url": "https://www.storyblok.com/"
+  },
+  "contributors": [
+    {
+      "name": "Alexander Feiglstorfer",
+      "email": "af@storyblok.com",
+      "url": "https://www.storyblok.com/"
+    },
+    {
+      "name": "Dominik Angerer",
+      "email": "da@storyblok.com",
+      "url": "https://www.storyblok.com/"
+    }
+  ],
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run serve",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@storefront-ui/vue": "^0.11.0-rc.1",
+    "axios": "^0.21.1",
+    "core-js": "^3.6.5",
+    "debounce": "^1.2.1",
+    "sass-loader": "^10.1.1",
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.5.13",
+    "@vue/cli-plugin-eslint": "^4.5.13",
+    "@vue/cli-service": "^4.5.13",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "fse": "^4.0.1",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
