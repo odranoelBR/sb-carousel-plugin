@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import "@storefront-ui/vue"
 import axios from "axios";
 import debounce from "debounce";
 import IntegrationItem from "./IntegrationItem";
@@ -80,12 +81,21 @@ export default {
     },
     load() {
       this.loading = true;
-      axios
-        .post(this.options.endpoint, this.requestOptions)
-        .then(res => {
-          this.products = res.data.data.allProductTemplates;
-          this.loading = false;
-        });
+      axios({
+        url: 'https://vsfdemo.labs.odoogap.com/graphql/vsf',
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: {
+          operationName: null,
+          query: '{\n allProductTemplates {\n id \n name \n image \n slug \n listPrice\n }\n}\n',
+          variables: {}
+        }
+      }).then(res => {
+        this.products = res.data.data.allProductTemplates
+        this.loading = false;
+      });
     },
     close() {
       this.$emit('close');

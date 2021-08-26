@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import "@storefront-ui/vue"
 import { SfProductCard } from '@storefront-ui/vue'
 
 export default {
