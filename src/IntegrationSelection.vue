@@ -19,21 +19,19 @@
         </div>
       </div>
     </div>
-    <div class="spinner" v-if="loading"></div>
-    <div v-if="products.length" class="integration-items">
-      <IntegrationItem
-        v-for="(product, index) in products"
-        :key="index"
-        :product="product"
-        :current="current"
-        @select="selectItem"
-      />
+    <div class="spinner" v-if="loading" />
+    <div v-if="!loading && products.length" class="integration-items">
+      <div v-for="(product, index) in products" :key="index">
+        <IntegrationItem
+          :product="product"
+          @select="selectItem"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import "@storefront-ui/vue"
 import axios from "axios";
 import debounce from "debounce";
 import IntegrationItem from "./IntegrationItem";
@@ -44,7 +42,6 @@ export default {
   },
   props: {
     options: Object,
-    current: Object,
   },
   data() {
     return {
@@ -77,10 +74,16 @@ export default {
     }, 300),
     search() {
       this.page = 1;
-      this.load();
+      this.load()
     },
     load() {
       this.loading = true;
+      let query = ''
+      if (this.search_term) {
+        query = `{\n allProductTemplates (name: "${this.search_term}") {\n id \n name \n image \n slug \n listPrice\n }\n}\n`
+      } else {
+        query = '{\n allProductTemplates {\n id\n name\n displayName\n image\n slug\n listPrice\n description\n defaultCode\n standardPrice\n currency { name\n symbol\n }\n firstVariantId }\n}\n'
+      }
       axios({
         url: 'https://vsfdemo.labs.odoogap.com/graphql/vsf',
         method: 'post',
@@ -89,7 +92,7 @@ export default {
         },
         data: {
           operationName: null,
-          query: '{\n allProductTemplates {\n id \n name \n image \n slug \n listPrice\n }\n}\n',
+          query: query,
           variables: {}
         }
       }).then(res => {
@@ -102,7 +105,6 @@ export default {
     },
     selectItem(product) {
       this.$emit('select', product);
-      this.close()
     },
   }
 };

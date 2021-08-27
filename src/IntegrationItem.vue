@@ -1,10 +1,40 @@
 <template>
-  <div class="integration-item">
-    <p>{{ product.name }}</p>
-    <SfProductCard
+  <div class="sf-product-card" @click="selectItem(product)">
+    <div class="sf-product-card__image-wrapper">
+      <SfImage
+        class="sf-product-card__image"
+        :src="product.image"
+        :alt="product.description ? product.description : product.name"
+      />
+    </div>
+
+    <div v-if="isOnCarousel">
+      <SfButton
+        :link="`https://vsfdemo.labs.odoogap.com/shop/${product.slug}`"
+        class="sf-button--pure sf-product-card__link"
+      >
+        <h3 class="sf-product-card__title">{{ product.name }}</h3>
+      </SfButton>
+    </div>
+    
+    <h3 v-else class="sf-product-card__title">{{ product.name }}</h3>
+
+    <SfPrice
+      class="sf-product-card__price"
+      :regular="product.listPrice"
+      :special="product.listPrice"
+    />
+
+    <SfRating
+      class="sf-product-card__rating"
+      :max="5"
+      :score="4"
+    />
+
+    <!-- <SfProductCard
       :image="product.image"
       :title="product.name"
-      :link="`https://storefrontui.io/${product.slug}`"
+      :link="`https://vsfdemo.labs.odoogap.com/shop/${product.slug}`"
       :regular-price="product.listPrice"
       special-price=""
       score-rating=""
@@ -16,27 +46,33 @@
       badge-color=""
       wishlist-icon="heart"
       @click="selectItem(product)"
-    />
+    /> -->
   </div>
 </template>
 
 <script>
-import "@storefront-ui/vue"
-import { SfProductCard } from '@storefront-ui/vue'
+import {
+  // SfProductCard,
+  SfImage,
+  SfPrice,
+  SfRating,
+  SfButton,
+} from '@storefront-ui/vue'
 
 export default {
   props: {
-    current: Object,
-    product: Object
+    product: Object,
+    isOnCarousel: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
-    SfProductCard
-  },
-  mounted() {
-    // eslint-disable-next-line
-    console.log(this.product)
-    // eslint-disable-next-line
-    console.log(Object.keys(this.product))
+    // SfProductCard,
+    SfImage,
+    SfPrice,
+    SfRating,
+    SfButton,
   },
   methods: {
     selectItem(product) {
