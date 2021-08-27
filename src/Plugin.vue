@@ -25,7 +25,7 @@
           v-for="(product, index) in model.products"
           :key="index"  
         > -->
-        <IntegrationItem
+        <ProductItem
           v-for="(product, index) in model.products"
           :key="index"
           :product="product"
@@ -38,7 +38,7 @@
     </div>
 
     <div v-if="modalIsOpen">
-      <IntegrationSelection
+      <ProductSelection
         :options="options"
         @select="selectItem"
         @close="closeSelection"
@@ -48,8 +48,8 @@
 </template>
 
 <script>
-import IntegrationItem from './IntegrationItem'
-import IntegrationSelection from './IntegrationSelection'
+import ProductItem from './ProductItem'
+import ProductSelection from './ProductSelection'
 
 import {
   SfCarousel,
@@ -61,8 +61,8 @@ export default {
   components: {
     SfCarousel,
     SfArrow,
-    IntegrationItem,
-    IntegrationSelection,
+    ProductItem,
+    ProductSelection,
   },
   data() {
     return {

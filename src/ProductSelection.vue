@@ -22,7 +22,7 @@
     <div class="spinner" v-if="loading" />
     <div v-if="!loading && products.length" class="integration-items">
       <div v-for="(product, index) in products" :key="index">
-        <IntegrationItem
+        <ProductItem
           :product="product"
           @select="selectItem"
         />
@@ -34,11 +34,11 @@
 <script>
 import axios from "axios";
 import debounce from "debounce";
-import IntegrationItem from "./IntegrationItem";
+import ProductItem from "./ProductItem";
 
 export default {
   components: {
-    IntegrationItem,
+    ProductItem,
   },
   props: {
     options: Object,
