@@ -1,6 +1,8 @@
 <template>
   <div class="integration-selection">
-    <div class="uk-flex uk-flex-middle util__grow integration-selection__header">
+    <div
+      class="uk-flex uk-flex-middle util__grow integration-selection__header"
+    >
       <div class="util__grow">
         <form class="uk-margin-right" @submit.prevent="search">
           <input
@@ -8,7 +10,7 @@
             v-model="search_term"
             placeholder="Search"
             class="uk-width-1-1"
-          >
+          />
         </form>
       </div>
       <div class="uk-position-relative uk-text-nowrap">
@@ -22,10 +24,7 @@
     <div class="spinner" v-if="loading" />
     <div v-if="!loading && products.length" class="integration-items">
       <div v-for="(product, index) in products" :key="index">
-        <ProductItem
-          :product="product"
-          @select="selectItem"
-        />
+        <ProductItem :product="product" @select="selectItem" />
       </div>
     </div>
   </div>
@@ -38,10 +37,10 @@ import ProductItem from "./ProductItem";
 
 export default {
   components: {
-    ProductItem,
+    ProductItem
   },
   props: {
-    options: Object,
+    options: Object
   },
   data() {
     return {
@@ -74,21 +73,22 @@ export default {
     }, 300),
     search() {
       this.page = 1;
-      this.load()
+      this.load();
     },
     load() {
       this.loading = true;
-      let query = ''
+      let query = "";
       if (this.search_term) {
-        query = `{\n allProductTemplates (name: "${this.search_term}") {\n id \n name \n image \n slug \n listPrice\n }\n}\n`
+        query = `{\n allProductTemplates (name: "${this.search_term}") {\n id \n name \n image \n slug \n listPrice\n }\n}\n`;
       } else {
-        query = '{\n allProductTemplates {\n id\n name\n displayName\n image\n slug\n listPrice\n description\n defaultCode\n standardPrice\n currency { name\n symbol\n }\n firstVariantId }\n}\n'
+        query =
+          "{\n allProductTemplates {\n id\n name\n displayName\n image\n slug\n listPrice\n description\n defaultCode\n standardPrice\n currency { name\n symbol\n }\n firstVariantId }\n}\n";
       }
       axios({
-        url: 'https://vsfdemo.labs.odoogap.com/graphql/vsf',
-        method: 'post',
+        url: "https://vsf.labs.odoogap.com/api/odoo/getProductTemplatesList",
+        method: "post",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json"
         },
         data: {
           operationName: null,
@@ -96,16 +96,18 @@ export default {
           variables: {}
         }
       }).then(res => {
-        this.products = res.data.data.allProductTemplates
+        // eslint-disable-next-line no-console
+        console.log(res);
+        this.products = res.data.products.products;
         this.loading = false;
       });
     },
     close() {
-      this.$emit('close');
+      this.$emit("close");
     },
     selectItem(product) {
-      this.$emit('select', product);
-    },
+      this.$emit("select", product);
+    }
   }
 };
 </script>

@@ -16,7 +16,7 @@
         <h3 class="sf-product-card__title">{{ product.name }}</h3>
       </SfButton>
     </div>
-    
+
     <h3 v-else class="sf-product-card__title">{{ product.name }}</h3>
 
     <SfPrice
@@ -25,13 +25,9 @@
       :special="product.listPrice"
     />
 
-    <SfRating
-      class="sf-product-card__rating"
-      :max="5"
-      :score="4"
-    />
+    <SfRating class="sf-product-card__rating" :max="5" :score="4" />
 
-    <!-- <SfProductCard
+    <SfProductCard
       :image="product.image"
       :title="product.name"
       :link="`https://vsfdemo.labs.odoogap.com/shop/${product.slug}`"
@@ -46,7 +42,7 @@
       badge-color=""
       wishlist-icon="heart"
       @click="selectItem(product)"
-    /> -->
+    />
   </div>
 </template>
 
@@ -56,29 +52,29 @@ import {
   SfImage,
   SfPrice,
   SfRating,
-  SfButton,
-} from '@storefront-ui/vue'
+  SfButton
+} from "@storefront-ui/vue";
 
 export default {
   props: {
     product: Object,
     isOnCarousel: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   components: {
     // SfProductCard,
     SfImage,
     SfPrice,
     SfRating,
-    SfButton,
+    SfButton
   },
   methods: {
     selectItem(product) {
-      this.$emit('select', product);
-    },
-  },
+      this.$emit("select", product);
+    }
+  }
 };
 </script>
 
